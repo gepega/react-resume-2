@@ -1,5 +1,4 @@
 import React from 'react';
-
 import EducationSection from './components/education';
 import ExperienceSection from './components/experience';
 import Header from './components/header';
@@ -21,18 +20,24 @@ function App() {
   const [theme, setTheme] = React.useState(
     localStorage.getItem('theme') || ''
   );
+
   React.useEffect(() => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // set theme to OS preference by default (if one exists)
-  if (theme === '') {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme('dark');
-    } else {
-      setTheme('light');
+  // Verifica si `window` está definido antes de usar `matchMedia`
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      // set theme to OS preference by default (if one exists)
+      if (theme === '') {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      }
     }
-  }
+  }, [theme]);
 
   if (THEME_SWITCHER_MODE === ThemeSwitcherMode.SWITCHABLE) {
     document.documentElement.setAttribute('data-theme', theme);
