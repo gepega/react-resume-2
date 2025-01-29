@@ -13,6 +13,10 @@
     "typescript": "^4.1.3",
     "web-vitals": "^0.2.4"
   },
+  // package.json (o jest.config.js)
+"jest": {
+  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"]
+  },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
